@@ -2,9 +2,9 @@ import UIKit
 
 public class TutorialCoordinator: Coordinator {
     let root: UIWindow
-    let completion: (Void) -> ()
+    let completion: (Bool) -> ()
 
-    public required init(_ root: UIWindow, completion: @escaping (Void) -> ()) {
+    public required init(_ root: UIWindow, completion: @escaping (Bool) -> ()) {
         self.root = root
         self.completion = completion
     }
@@ -20,5 +20,11 @@ public class TutorialCoordinator: Coordinator {
 
     func skipTutorial() {
         debugPrint("User wants to skip tutorial!")
+        completion(false)
+    }
+
+    func completeTutorial() {
+        debugPrint("User completed tutorial!")
+        completion(true)
     }
 }
