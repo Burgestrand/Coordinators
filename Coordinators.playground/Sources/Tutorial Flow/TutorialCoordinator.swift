@@ -11,6 +11,7 @@ public class TutorialCoordinator: Coordinator {
 
     public func start() {
         let vc = TutorialViewController()
+        vc.configure(self, ())
         vc.title = "Tutorial"
         root.rootViewController = vc
     }

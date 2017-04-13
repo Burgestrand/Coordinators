@@ -1,6 +1,14 @@
 import UIKit
 
-class TutorialViewController: SimpleViewController {
+class TutorialViewController: SimpleViewController, View {
+    private(set) var viewModel: Void!
+    private(set) var coordinator: TutorialCoordinator!
+
+    func configure(_ coordinator: TutorialCoordinator, _ viewModel: Void) {
+        self.viewModel = viewModel
+        self.coordinator = coordinator
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 

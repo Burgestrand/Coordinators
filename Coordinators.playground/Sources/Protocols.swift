@@ -14,3 +14,10 @@ public extension Coordinator {
         self.init(root) { _ in }
     }
 }
+
+public protocol View: class {
+    associatedtype _Coordinator: Coordinator
+    associatedtype _ViewModel
+
+    func configure(_ coordinator: _Coordinator, _ viewModel: _ViewModel)
+}
