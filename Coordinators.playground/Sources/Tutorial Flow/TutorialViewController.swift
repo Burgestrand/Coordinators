@@ -17,11 +17,17 @@ class TutorialViewController: SimpleViewController, View {
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .blue
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(self.skip), for: .primaryActionTriggered)
         view.addSubview(button)
 
         NSLayoutConstraint.activate([
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
-            ])
+        ])
+    }
+
+    func skip() {
+        // NOTE: if viewModel.someLogic { … }
+        coordinator.skipTutorial()
     }
 }

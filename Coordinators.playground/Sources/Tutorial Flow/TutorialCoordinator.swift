@@ -15,4 +15,10 @@ public class TutorialCoordinator: Coordinator {
         vc.title = "Tutorial"
         root.rootViewController = vc
     }
+
+    // View interface.
+
+    func skipTutorial() {
+        debugPrint("User wants to skip tutorial!")
+    }
 }
