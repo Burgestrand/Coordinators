@@ -2,6 +2,7 @@ import PlaygroundSupport
 import Foundation
 import UIKit
 
+//: Interfaces
 protocol Coordinator: class {
     associatedtype Value
     associatedtype Root
@@ -11,6 +12,7 @@ protocol Coordinator: class {
     func start()
 }
 
+//: App Flow
 class AppCoordinator {
     enum Flow {
         case tutorial(TutorialCoordinator)
@@ -38,6 +40,7 @@ class AppCoordinator {
     }
 }
 
+//: Tutorial Flow
 class TutorialCoordinator {
     let root: UIWindow
     let completion: (Void) -> ()
@@ -51,24 +54,6 @@ class TutorialCoordinator {
         let vc = TutorialViewController()
         vc.title = "Tutorial"
         root.rootViewController = vc
-    }
-}
-
-class SimpleViewController: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = title ?? "N/A"
-        label.textColor = .black
-        view.addSubview(label)
-        NSLayoutConstraint.activate([
-            view.centerXAnchor.constraint(equalTo: label.centerXAnchor),
-            view.centerYAnchor.constraint(equalTo: label.centerYAnchor),
-            ])
-
-        view.backgroundColor = .white
     }
 }
 
@@ -90,6 +75,7 @@ class TutorialViewController: SimpleViewController {
     }
 }
 
+//: Utility Classes
 class AppDelegate {
     var coordinator: AppCoordinator!
 
@@ -101,7 +87,26 @@ class AppDelegate {
     }
 }
 
-// Start!
+
+class SimpleViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = title ?? "N/A"
+        label.textColor = .black
+        view.addSubview(label)
+        NSLayoutConstraint.activate([
+            view.centerXAnchor.constraint(equalTo: label.centerXAnchor),
+            view.centerYAnchor.constraint(equalTo: label.centerYAnchor),
+            ])
+
+        view.backgroundColor = .white
+    }
+}
+
+//: Bootstrap!
 let delegate = AppDelegate()
 
 PlaygroundPage.current.liveView = delegate.applicationDidFinishLaunching()
