@@ -15,9 +15,12 @@ public extension Coordinator {
     }
 }
 
+public protocol ViewModel: class {
+}
+
 public protocol View: class {
     associatedtype _Coordinator: Coordinator
-    associatedtype _ViewModel
+    associatedtype _ViewModel: ViewModel
 
     func configure(_ coordinator: _Coordinator, _ viewModel: _ViewModel)
 }

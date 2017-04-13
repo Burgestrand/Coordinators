@@ -1,11 +1,13 @@
 import UIKit
 
+/// Maybe this VC don't want a ViewModel? But protocol says we MUST!
+class TutorialViewModel: ViewModel {
+}
+
 class TutorialViewController: SimpleViewController, View {
-    private(set) var viewModel: Void!
     private(set) var coordinator: TutorialCoordinator!
 
-    func configure(_ coordinator: TutorialCoordinator, _ viewModel: Void) {
-        self.viewModel = viewModel
+    func configure(_ coordinator: TutorialCoordinator, _ viewModel: TutorialViewModel = TutorialViewModel()) {
         self.coordinator = coordinator
     }
 
