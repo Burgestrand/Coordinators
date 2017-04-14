@@ -26,14 +26,14 @@ class AuthViewController: SimpleViewController, View {
 
         let textField = UITextField()
         stackView.addArrangedSubview(textField)
-        self.userNameField = UITextField()
+        self.userNameField = textField
         textField.placeholder = "User name"
 
         let button = UIButton(type: .custom)
         button.setTitle("Sign in", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.addTarget(self, action: #selector(self.login), for: .primaryActionTriggered)
-        stackView.addSubview(button)
+        stackView.addArrangedSubview(button)
     }
 
     func login() {
