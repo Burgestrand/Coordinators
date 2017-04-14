@@ -37,6 +37,10 @@ class AuthViewController: SimpleViewController, View {
     }
 
     func login() {
-        debugPrint("Sign in", userNameField.text ?? "<N/A>")
+        if let user = viewModel.signIn(userName: userNameField.text) {
+            coordinator.authenticationCompleted(user)
+        } else {
+            debugPrint("Failed to sign in!")
+        }
     }
 }

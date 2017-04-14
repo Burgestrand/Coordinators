@@ -9,7 +9,7 @@ public class TutorialCoordinator: Coordinator {
         self.completion = completion
     }
 
-    public func start() {
+    public func start(_ state: Void) {
         let vc = TutorialViewController()
         vc.configure(self)
         vc.title = "Tutorial"

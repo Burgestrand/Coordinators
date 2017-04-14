@@ -1,6 +1,6 @@
 import UIKit
 
-public class AuthCoordinator: Coordinator {
+public class MainCoordinator: Coordinator {
     let root: UIWindow
     let completion: (String) -> ()
 
@@ -9,12 +9,12 @@ public class AuthCoordinator: Coordinator {
         self.completion = completion
     }
 
-    public func start(_ state: Void) {
+    public func start(_ userName: String) {
         debugPrint("Start auth")
-        let vc = AuthViewController()
-        let vm = AuthViewModel()
+        let vc = MainViewController()
+        let vm = MainViewModel(userName)
         vc.configure(self, vm)
-        vc.title = "Auth"
+        vc.title = "Main"
         root.rootViewController = vc
     }
 

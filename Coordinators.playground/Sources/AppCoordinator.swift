@@ -4,52 +4,56 @@ public class AppCoordinator: Coordinator {
     enum Flow {
         case tutorial(TutorialCoordinator)
         case auth(AuthCoordinator)
-        //        case main(MainCoordinator)
+        case main(MainCoordinator)
+    }
 
-        func start() {
-            switch self {
-            case .tutorial(let coordinator):
-                coordinator.start()
-            case .auth(let coordinator):
-                coordinator.start()
-            }
-        }
+    public enum State {
+        case firstLaunch
+        case auth
+        case main(userName: String)
     }
 
     private let window: UIWindow
-    var current: Flow! {
-        didSet {
-            debugPrint(current)
-            current.start()
-        }
-    }
 
     required public init(_ window: UIWindow, completion: @escaping (Void) -> ()) {
         self.window = window
     }
 
-    // App state
-    var firstLaunch = true
-    var userName: String?
+    var current: Flow!
+    var state: State! {
+        didSet {
+            guard let state = state else {
+                preconditionFailure()
+            }
 
-    public func start() {
-        current = nextFlow()
-        window.makeKeyAndVisible()
+            switch state {
+            case .firstLaunch:
+                let coordinator = TutorialCoordinator(window) { [unowned self] tutorialCompleted in
+                    debugPrint("Tutorial completed", tutorialCompleted)
+                    self.state = .auth
+                }
+                current = .tutorial(coordinator)
+                coordinator.start()
+            case .auth:
+                let coordinator = AuthCoordinator(window) { [unowned self] userName in
+                    self.state = .main(userName: userName)
+                    debugPrint("User signed in", userName)
+                }
+                current = .auth(coordinator)
+                coordinator.start()
+            case .main(userName: let userName):
+                let coordinator = MainCoordinator(window) { [unowned self] _ in
+                    self.state = .auth
+                    fatalError("Sign out not yet implemented.")
+                }
+                current = .main(coordinator)
+                coordinator.start(userName)
+            }
+        }
     }
 
-    private func nextFlow() -> Flow {
-        if firstLaunch {
-            firstLaunch = false
-            let coordinator = TutorialCoordinator(window) { [unowned self] tutorialCompleted in
-                debugPrint("Tutorial completed", tutorialCompleted)
-                self.current = self.nextFlow()
-            }
-            return .tutorial(coordinator)
-        } else {
-            let coordinator = AuthCoordinator(window) { [unowned self] userName in
-                debugPrint("User signed in", userName)
-            }
-            return .auth(coordinator)
-        }
+    public func start(_ state: State = .firstLaunch) {
+        self.state = state
+        window.makeKeyAndVisible()
     }
 }
