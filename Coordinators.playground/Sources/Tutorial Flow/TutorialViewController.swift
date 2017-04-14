@@ -24,7 +24,7 @@ class TutorialViewController: SimpleViewController, View {
 
         NSLayoutConstraint.activate([
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
+            button.topAnchor.constraint(equalTo: view.topAnchor, constant: 8),
         ])
     }
 

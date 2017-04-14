@@ -19,8 +19,10 @@ class AuthViewController: SimpleViewController, View {
         view.addSubview(stackView)
         NSLayoutConstraint.activate([
             stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 8),
         ])
+        stackView.axis = .vertical
+        stackView.spacing = 10
 
         let textField = UITextField()
         stackView.addArrangedSubview(textField)
